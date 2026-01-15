@@ -1,0 +1,8 @@
+{
+  "name": "Despensa 1982 - E-commerce & Admin",
+  "description": "A complete e-commerce platform for a natural food store, featuring a shopping cart, product catalog, checkout with WhatsApp integration, and a comprehensive admin inventory dashboard.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
