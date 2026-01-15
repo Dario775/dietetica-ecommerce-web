@@ -29,6 +29,7 @@ interface PaymentMethodConfig {
 const AdminPage: React.FC<AdminPageProps> = ({ products, setProducts }) => {
   const [sales, setSales] = useState<Sale[]>(INITIAL_SALES);
   const [searchTerm, setSearchTerm] = useState('');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [activeTab, setActiveTab] = useState('inventario');
@@ -305,9 +306,25 @@ const AdminPage: React.FC<AdminPageProps> = ({ products, setProducts }) => {
 
   return (
     <div className="flex h-screen bg-[#F8FAFB] text-slate-700 font-sans overflow-hidden">
+      {/* Mobile Sidebar Overlay */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm lg:hidden animate-in fade-in"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar Premium */}
-      <aside className="w-64 bg-[#0F172A] flex flex-col shrink-0 h-full text-slate-300">
-        <div className="p-8">
+      <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-[#0F172A] flex flex-col shrink-0 h-full text-slate-300 transition-transform duration-300 lg:static lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+        <div className="p-6 lg:p-8 relative">
+          {/* Mobile Close Button */}
+          <button
+            onClick={() => setSidebarOpen(false)}
+            className="absolute top-4 right-4 text-slate-500 hover:text-white lg:hidden"
+          >
+            <span className="material-symbols-outlined">close</span>
+          </button>
+
           <Link to="/" className="flex items-center gap-3 mb-10">
             <div className="bg-primary rounded-xl size-10 flex items-center justify-center shadow-lg shadow-primary/20">
               <span className="material-symbols-outlined text-white text-2xl">eco</span>
@@ -373,28 +390,36 @@ const AdminPage: React.FC<AdminPageProps> = ({ products, setProducts }) => {
       {/* Main Container */}
       <main className="flex-1 overflow-y-auto">
         {/* Header Bar */}
-        <header className="h-20 bg-white border-b border-slate-200 flex items-center justify-between px-10 sticky top-0 z-30">
-          <div className="flex items-center gap-4 bg-slate-50 px-4 py-2 rounded-xl border border-slate-100 w-96 group focus-within:bg-white focus-within:ring-2 focus-within:ring-primary/20 transition-all">
-            <span className="material-symbols-outlined text-slate-400">search</span>
-            <input
-              value={searchTerm}
-              onChange={e => setSearchTerm(e.target.value)}
-              placeholder={activeTab === 'ventas' ? "Buscar por cliente o ID de orden..." : "Buscar por nombre, SKU..."}
-              className="bg-transparent border-none text-sm w-full focus:ring-0 placeholder:text-slate-400 font-medium"
-            />
-          </div>
-          <div className="flex items-center gap-6">
-            <div className="flex items-center gap-3 border-l pl-6 border-slate-200">
-              <div className="text-right">
-                <p className="text-xs font-black text-slate-900 leading-none">Admin Despensa</p>
-                <p className="text-[10px] font-bold text-slate-400 uppercase mt-1">Superusuario</p>
-              </div>
-              <img src={`https://ui-avatars.com/api/?name=Admin+Despensa&background=00b172&color=fff`} className="size-10 rounded-xl shadow-sm border border-slate-100" alt="Avatar" />
+        <header className="h-16 lg:h-20 bg-white border-b border-slate-200 flex items-center justify-between px-4 lg:px-10 sticky top-0 z-30">
+          <div className="flex items-center gap-4 flex-1 lg:flex-none">
+            <button
+              onClick={() => setSidebarOpen(true)}
+              className="lg:hidden text-slate-500 hover:text-primary transition-colors"
+            >
+              <span className="material-symbols-outlined text-2xl">menu</span>
+            </button>
+
+            <div className="flex items-center gap-4 bg-slate-50 px-4 py-2 rounded-xl border border-slate-100 w-full lg:w-96 group focus-within:bg-white focus-within:ring-2 focus-within:ring-primary/20 transition-all">
+              <span className="material-symbols-outlined text-slate-400">search</span>
+              <input
+                value={searchTerm}
+                onChange={e => setSearchTerm(e.target.value)}
+                placeholder={activeTab === 'ventas' ? "Buscar por cliente o ID de orden..." : "Buscar por nombre, SKU..."}
+                className="bg-transparent border-none text-sm w-full focus:ring-0 placeholder:text-slate-400 font-medium"
+              />
             </div>
-          </div>
+            <div className="flex items-center gap-6">
+              <div className="flex items-center gap-3 border-l pl-6 border-slate-200">
+                <div className="text-right">
+                  <p className="text-xs font-black text-slate-900 leading-none">Admin Despensa</p>
+                  <p className="text-[10px] font-bold text-slate-400 uppercase mt-1">Superusuario</p>
+                </div>
+                <img src={`https://ui-avatars.com/api/?name=Admin+Despensa&background=00b172&color=fff`} className="size-10 rounded-xl shadow-sm border border-slate-100" alt="Avatar" />
+              </div>
+            </div>
         </header>
 
-        <div className="p-10 max-w-7xl mx-auto space-y-10">
+        <div className="p-4 lg:p-10 max-w-7xl mx-auto space-y-6 lg:space-y-10">
 
           {activeTab === 'dashboard' ? (
             <div className="space-y-10 animate-in fade-in duration-500">
