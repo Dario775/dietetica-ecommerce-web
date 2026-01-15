@@ -408,15 +408,16 @@ const AdminPage: React.FC<AdminPageProps> = ({ products, setProducts }) => {
                 className="bg-transparent border-none text-sm w-full focus:ring-0 placeholder:text-slate-400 font-medium"
               />
             </div>
-            <div className="flex items-center gap-6">
-              <div className="flex items-center gap-3 border-l pl-6 border-slate-200">
-                <div className="text-right">
-                  <p className="text-xs font-black text-slate-900 leading-none">Admin Despensa</p>
-                  <p className="text-[10px] font-bold text-slate-400 uppercase mt-1">Superusuario</p>
-                </div>
-                <img src={`https://ui-avatars.com/api/?name=Admin+Despensa&background=00b172&color=fff`} className="size-10 rounded-xl shadow-sm border border-slate-100" alt="Avatar" />
+          </div>
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-3 border-l pl-6 border-slate-200">
+              <div className="text-right">
+                <p className="text-xs font-black text-slate-900 leading-none">Admin Despensa</p>
+                <p className="text-[10px] font-bold text-slate-400 uppercase mt-1">Superusuario</p>
               </div>
+              <img src={`https://ui-avatars.com/api/?name=Admin+Despensa&background=00b172&color=fff`} className="size-10 rounded-xl shadow-sm border border-slate-100" alt="Avatar" />
             </div>
+          </div>
         </header>
 
         <div className="p-4 lg:p-10 max-w-7xl mx-auto space-y-6 lg:space-y-10">
