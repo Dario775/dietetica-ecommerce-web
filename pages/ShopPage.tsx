@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Product } from '../types';
 import { formatPrice } from '../constants';
 
@@ -17,6 +17,18 @@ const ShopPage: React.FC<ShopPageProps> = ({ products, addToCart }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
+
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    if (quickViewProduct) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [quickViewProduct]);
 
   const categoryDefs = [
     { id: 'pantry', label: 'Pantry Essentials', icon: 'inventory_2' },
@@ -277,7 +289,7 @@ const ShopPage: React.FC<ShopPageProps> = ({ products, addToCart }) => {
             onClick={() => setQuickViewProduct(null)}
           >
             <div
-              className="relative bg-white dark:bg-surface-dark rounded-3xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-4 duration-300"
+              className="relative bg-white dark:bg-surface-dark rounded-3xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto animate-in zoom-in-95 slide-in-from-bottom-4 duration-300"
               onClick={e => e.stopPropagation()}
             >
               {/* Close Button */}
