@@ -20,7 +20,7 @@ const Header: React.FC<HeaderProps> = ({ cartCount, isDarkMode, toggleDarkMode }
       {/* Promo Banner */}
       <div className="bg-gradient-to-r from-primary via-primary-dark to-primary text-white text-center py-2.5 text-xs font-bold tracking-wide">
         <span className="material-symbols-outlined text-sm align-middle mr-2">local_shipping</span>
-        ENVÍO GRATIS en compras mayores a $50 |
+        ENVÍO GRATIS en compras mayores a $5000 |
         <span className="underline ml-1 cursor-pointer hover:text-white/80 transition-colors">Ver condiciones</span>
       </div>
 
@@ -62,8 +62,8 @@ const Header: React.FC<HeaderProps> = ({ cartCount, isDarkMode, toggleDarkMode }
                 key={item.to}
                 to={item.to}
                 className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${isActive(item.to)
-                    ? 'bg-primary/10 text-primary'
-                    : 'text-text-main hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
+                  ? 'bg-primary/10 text-primary'
+                  : 'text-text-main hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
                   }`}
               >
                 <span className="material-symbols-outlined text-lg">{item.icon}</span>
@@ -158,8 +158,8 @@ const Header: React.FC<HeaderProps> = ({ cartCount, isDarkMode, toggleDarkMode }
                   to={item.to}
                   onClick={() => setIsMenuOpen(false)}
                   className={`flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-bold transition-all ${isActive(item.to)
-                      ? 'bg-primary/10 text-primary'
-                      : 'text-text-main hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-800'
+                    ? 'bg-primary/10 text-primary'
+                    : 'text-text-main hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-800'
                     }`}
                 >
                   <span className="material-symbols-outlined text-xl">{item.icon}</span>

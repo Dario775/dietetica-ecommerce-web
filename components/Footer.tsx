@@ -133,8 +133,8 @@ const Footer: React.FC = () => {
                 <span className="text-gray-400 text-sm">Guemes 1981<br />Santa Fe, Argentina</span>
               </li>
               <li className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-primary text-lg">Telefono</span>
-                <a href="tel:+5491112345678" className="text-gray-400 hover:text-white text-sm transition-colors">+54 9 3496-513052</a>
+                <span className="material-symbols-outlined text-primary text-lg">call</span>
+                <a href="tel:+5493496513052" className="text-gray-400 hover:text-white text-sm transition-colors">+54 9 3496-513052</a>
               </li>
               <li className="flex items-center gap-3">
                 <span className="material-symbols-outlined text-primary text-lg">mail</span>

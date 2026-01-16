@@ -325,9 +325,9 @@ const AdminPage: React.FC<AdminPageProps> = ({ products, setProducts }) => {
             <span className="material-symbols-outlined">close</span>
           </button>
 
-          <Link to="/" className="flex items-center gap-3 mb-10">
-            <div className="bg-primary rounded-xl size-10 flex items-center justify-center shadow-lg shadow-primary/20">
-              <span className="material-symbols-outlined text-white text-2xl">eco</span>
+          <Link to="/" className="flex items-center gap-3 mb-10 group">
+            <div className="relative flex size-12 items-center justify-center overflow-hidden rounded-full shadow-lg shadow-primary/20 bg-white transition-transform group-hover:scale-105">
+              <img src="/logo.png" alt="Despensa 1982" className="w-full h-full object-cover" />
             </div>
             <div>
               <h1 className="text-white text-sm font-black uppercase tracking-widest leading-none">Despensa</h1>
@@ -475,7 +475,63 @@ const AdminPage: React.FC<AdminPageProps> = ({ products, setProducts }) => {
                 </button>
               </div>
 
-              <div className="bg-white rounded-[2rem] border border-slate-200 shadow-xl shadow-slate-200/40 overflow-hidden">
+              {/* Mobile Card View (Sales) */}
+              <div className="md:hidden space-y-4">
+                {paginatedData.map((s: any) => (
+                  <div key={s.id} className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
+                    <div className="flex justify-between items-start mb-4">
+                      <div>
+                        <p className="text-sm font-black text-slate-900">{s.customerName}</p>
+                        <p className="text-[10px] text-slate-400 font-bold uppercase">{s.id}</p>
+                      </div>
+                      <span className={`px-2 py-1 rounded-lg text-[10px] font-black uppercase tracking-wide ${s.status === 'Entregado' ? 'bg-green-100 text-green-700' :
+                        s.status === 'Cancelado' ? 'bg-red-100 text-red-700' :
+                          s.status === 'Enviado' ? 'bg-blue-100 text-blue-700' : 'bg-amber-100 text-amber-700'
+                        }`}>
+                        {s.status}
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4 mb-4">
+                      <div>
+                        <p className="text-[10px] text-slate-400 font-bold uppercase">Fecha</p>
+                        <p className="text-xs font-bold text-slate-700">{new Date(s.date).toLocaleDateString()}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-[10px] text-slate-400 font-bold uppercase">Total</p>
+                        <p className="text-sm font-black text-slate-900">{formatPrice(s.total)}</p>
+                      </div>
+                      <div>
+                        <p className="text-[10px] text-slate-400 font-bold uppercase">Pago</p>
+                        <p className="text-xs font-bold text-slate-700">{s.paymentMethod}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-[10px] text-slate-400 font-bold uppercase">Envío</p>
+                        <p className="text-xs font-bold text-slate-700">{s.shippingMethod}</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-3 pt-4 border-t border-slate-50">
+                      <select
+                        value={s.status}
+                        onChange={(e) => handleUpdateSaleStatus(s.id, e.target.value as Sale['status'])}
+                        className="flex-1 bg-slate-50 border-none text-xs font-bold rounded-xl py-2 pl-3 pr-8 focus:ring-2 focus:ring-primary/20"
+                      >
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="Enviado">Enviado</option>
+                        <option value="Entregado">Entregado</option>
+                        <option value="Cancelado">Cancelado</option>
+                      </select>
+                      <button className="p-2 text-slate-400 hover:text-primary transition-colors bg-slate-50 rounded-xl">
+                        <span className="material-symbols-outlined text-lg">visibility</span>
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Desktop Table View (Sales) */}
+              <div className="hidden md:block bg-white rounded-[2rem] border border-slate-200 shadow-xl shadow-slate-200/40 overflow-hidden">
                 <div className="overflow-x-auto">
                   <table className="w-full text-left border-collapse">
                     <thead>
@@ -1004,7 +1060,51 @@ const AdminPage: React.FC<AdminPageProps> = ({ products, setProducts }) => {
                 </div>
               )}
 
-              <div className="bg-white rounded-[2rem] border border-slate-200 shadow-xl shadow-slate-200/40 overflow-hidden">
+              {/* Mobile Card View (Inventory) */}
+              <div className="md:hidden space-y-4">
+                {paginatedData.map((p: any) => (
+                  <div key={p.id} className="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex gap-4">
+                    <img
+                      src={p.images?.[0] || 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=400'}
+                      alt={p.name}
+                      className="size-24 rounded-xl object-cover bg-slate-50"
+                    />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex justify-between items-start mb-1">
+                        <h4 className="font-bold text-slate-900 truncate pr-2">{p.name}</h4>
+                        <button onClick={() => handleDelete(p.id)} className="text-slate-300 hover:text-red-500">
+                          <span className="material-symbols-outlined text-lg">delete</span>
+                        </button>
+                      </div>
+                      <p className="text-[10px] font-bold text-slate-400 uppercase mb-2">{p.sku}</p>
+
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="text-lg font-black text-slate-900">{formatPrice(p.price)}</span>
+                        <span className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase border ${p.status === 'In Stock' ? 'bg-green-50 text-green-700 border-green-200' : 'bg-red-50 text-red-700 border-red-200'
+                          }`}>
+                          {p.status === 'In Stock' ? 'Stock' : 'Crítico'}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-1 text-xs font-bold text-slate-500 bg-slate-50 px-2 py-1 rounded-lg">
+                          <span className="material-symbols-outlined text-sm">inventory_2</span>
+                          {p.stock}
+                        </div>
+                        <button
+                          onClick={() => handleEdit(p)}
+                          className="flex-1 bg-slate-900 text-white text-xs font-bold py-1.5 rounded-lg hover:bg-black transition-colors"
+                        >
+                          Editar
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Desktop Table View (Inventory) */}
+              <div className="hidden md:block bg-white rounded-[2rem] border border-slate-200 shadow-xl shadow-slate-200/40 overflow-hidden">
                 <div className="overflow-x-auto">
                   <table className="w-full text-left border-collapse">
                     <thead>
