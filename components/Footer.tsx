@@ -130,11 +130,11 @@ const Footer: React.FC = () => {
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <span className="material-symbols-outlined text-primary text-lg mt-0.5">location_on</span>
-                <span className="text-gray-400 text-sm">Av. Principal 1234, Local 5<br />Buenos Aires, Argentina</span>
+                <span className="text-gray-400 text-sm">Guemes 1981<br />Santa Fe, Argentina</span>
               </li>
               <li className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-primary text-lg">phone</span>
-                <a href="tel:+5491112345678" className="text-gray-400 hover:text-white text-sm transition-colors">+54 9 11 1234-5678</a>
+                <span className="material-symbols-outlined text-primary text-lg">Telefono</span>
+                <a href="tel:+5491112345678" className="text-gray-400 hover:text-white text-sm transition-colors">+54 9 3496-513052</a>
               </li>
               <li className="flex items-center gap-3">
                 <span className="material-symbols-outlined text-primary text-lg">mail</span>
@@ -154,7 +154,7 @@ const Footer: React.FC = () => {
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <p className="text-sm text-gray-500 text-center sm:text-left">
-              © 2024 Despensa & Dietética 1982. Todos los derechos reservados.
+              © 2026 Despensa & Dietética 1982. Todos los derechos reservados.
             </p>
             <div className="flex flex-wrap justify-center gap-6">
               {['Términos', 'Privacidad', 'Cookies'].map((item) => (
